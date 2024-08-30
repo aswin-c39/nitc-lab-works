@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<string.h>
+typedef struct students
+{
+    char rollno[11];
+    int marks;
+    char result[5]; 
+}Student;
+
+int isValidRollnumber(char *str)
+{
+    if(strlen(str)>8)
+        return 0;
+    if(*(str+0)=='B' && *(str+1)=='C' && *(str+2)=='S' && *(str+3)=='2')
+    {
+        if(*(str+4)>='0' && *(str+4)<='3')
+        {
+            if(*(str+5)>='0' && *(str+5)<='9')
+            {
+                if(*(str+6)>='0' && *(str+6)<='9')
+                {
+                    if(*(str+7)>='0' && *(str+7)<='9')
+                        return 1;
+                }
+            }
+
+        }
+    }
+    return 0;
+}
+
+void assignResult(Student *s)
+{
+    if(s -> marks > 40)
+        strcpy(s->result, "Pass");
+    else
+        strcpy(s->result, "Fail");
+}
+
+void printPassed(Student A[])
+{
+    for(int i=0;i<5;i++)
+    {
+        if(strcmp((A+i)->result,"Pass")==0)
+        {
+            printf("%s\n",(A+i)->rollno);
+        }
+    }
+}
+int main()
+{
+    Student s[5];
+    for(int i=0;i<5;i++)
+    {
+        
+            scanf("%s",s[i].rollno);
+            if(isValidRollnumber(s[i].rollno)==0)
+            {
+                printf("INVALID\n");
+                i--;
+            }
+            else
+                scanf("%d",&s[i].marks);
+    }
+    for(int i=0;i<5;i++)
+        {
+            Student *ptr=&s[i];
+            assignResult(ptr);
+        }
+    printPassed(s);
+    return 0;
+}
